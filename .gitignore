@@ -1,0 +1,5 @@
+*.pyc
+posts/
+site/
+.DS_STORE
+.idea/
