@@ -1,0 +1,4 @@
+watchdog
+boto
+colorama
+requests

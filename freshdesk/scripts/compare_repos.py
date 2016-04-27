@@ -2,10 +2,7 @@
 Python script to check if any articles were created on Freshdesk instead of locally
 or if any articles were deleted from Freshdesk but not deleted locally.
 """
-from API.freshdesk import API
-import os
 import glob
-import sys
 from colorama import init
 from colorama import Fore
 init()

@@ -4,19 +4,13 @@ Python script to create a new article in a given section id.
 
 import os
 import sys
-
-
 from requests import HTTPError
 from API.freshdesk import API
-from scripts import file_constants
-
 from colorama import init
 from colorama import Fore
 
-init()
 
-
-def main(category_id, folder_id):
+def _create_shell(category_id, folder_id):
     # Get domain
     try:
         domain = os.environ["FRESHDESK_DOMAIN"]
@@ -57,10 +51,10 @@ def main(category_id, folder_id):
 
     # Create the article shell locally.
     article_id = article['id']
-    create_shell(str(category_id), str(folder_id), str(article_id))
+    _make_files(str(category_id), str(folder_id), str(article_id))
 
 
-def create_shell(category_id, folder_id, article_id):
+def _make_files(category_id, folder_id, article_id):
     # creates the article in posts/category_id/folder_id
     path = "posts/" + category_id + "/" + folder_id + "/" + article_id
     article = path + "/index.html"
@@ -95,8 +89,10 @@ def _empty_article(folder_id):
             "folder_id": folder_id
           }
 
-if __name__ == '__main__':
+
+def main():
+    init()
     if len(sys.argv) != 3:
         print('Usage: python %s <category_id> <folder_id>' % sys.argv[0])
     else:
-        main(sys.argv[1], sys.argv[2])
+        _create_shell(sys.argv[1], sys.argv[2])

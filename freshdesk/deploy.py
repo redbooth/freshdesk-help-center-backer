@@ -5,22 +5,15 @@ Python script to deploy article to Freshdesk.
 import os
 import sys
 import glob
-
-
 from colorama import init
 from colorama import Fore
-
 from scripts import renderer
 from scripts import cloudfront_images
 from scripts import compare_repos
-
-from scripts import file_constants
 from API.freshdesk import API
 
-init()
 
-
-def main(article_id, freshdesk, cloudfront_url):
+def _deploy(article_id, freshdesk, cloudfront_url):
 
     # Check if the article_id is valid
     try:
@@ -73,7 +66,12 @@ def _article_json(title, description):
             "status": 2
           }
 
-if __name__ == '__main__':
+
+def main():
+
+    # initialize colorama
+    init()
+
     # Get cloudfront url.
     try:
         cloudfront_url = os.environ["FRESHDESK_CLOUDFRONT_URL"]
@@ -102,14 +100,14 @@ if __name__ == '__main__':
 
     if len(sys.argv) == 2:
         print (Fore.MAGENTA + "Processing Article 1/1" + Fore.RESET)
-        main(sys.argv[1], freshdesk, cloudfront_url)
+        _deploy(sys.argv[1], freshdesk, cloudfront_url)
     else:
         articles = glob.glob("posts/*/*/*")
         i = 1
         for article in articles:
             article_id = article.split("/")[-1]
             print (Fore.MAGENTA + "Processing Article %s/%s %s" % (str(i), len(articles), article_id) + Fore.RESET)
-            main(article_id, freshdesk, cloudfront_url)
+            _deploy(article_id, freshdesk, cloudfront_url)
             i += 1
 
     print "="*40

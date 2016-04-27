@@ -4,3 +4,7 @@ site/
 .DS_STORE
 .idea/
 out/
+build
+dist
+env
+*.egg-info

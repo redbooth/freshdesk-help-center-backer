@@ -31,13 +31,13 @@ images backed on Freshdesk and comment out all scripts that involve S3.**
 
 ## Tracking Changes
 
-Before locally editing articles and images, **always run `track-changes.py`**.
+Before locally editing articles and images, **always run `freshdesk-track`**.
 This allows for local viewing of content. All local content is available in the
-"out" folder. To quit `track-changes.py`, type CTRL+C.
+"out" folder. To quit `freshdesk-track`, type CTRL+C.
 
 ## Creating New Articles
 
-- Run `create-new-post-shell.py` with the Freshdesk category and folder IDs as the parameters.
+- Run `freshdesk-create` with the Freshdesk category and folder IDs as the parameters.
 - Add the title to the file `title.html`.
 - Open the file `index.html` and write the article.
 	- For images, enter: `img src="<image_name>"` with the
@@ -47,7 +47,7 @@ This allows for local viewing of content. All local content is available in the
 
 ## Local Viewing
 
-- Ensure `track-changes.py` is running. If it wasn't, run it now.
+- Ensure `freshdesk-track` is running. If it wasn't, run it now.
 - Once the article is complete, open the version of the article in the "out"
   folder for local viewing. This will provide a basic HTML view in your
   preferred browser.
@@ -55,14 +55,14 @@ This allows for local viewing of content. All local content is available in the
 ## Deployment
 
 - When you are ready to publish your changes, you have two options:
-	- To deploy a single article, run `deploy.py` with the article ID
+	- To deploy a single article, run `freshdesk-deploy` with the article ID
       as the parameter.
-    - To deploy all the articles, run `deploy.py` with no parameters.
+    - To deploy all the articles, run `freshdesk-deploy` with no parameters.
 - Commit all changes that you make in the "posts" folder to GitHub
 to ensure revision control and allow others to review your changes.
 
-To edit past articles, simply edit the HTML files with `track-changes.py`
-running. Local edits can be viewed in the "out" folder and use `deploy.py` as
+To edit past articles, simply edit the HTML files with `freshdesk-track`
+running. Local edits can be viewed in the "out" folder and use `freshdesk-deploy` as
 outlined above to publish the edits. The final version should also be commited to GitHub.
 
 ## License

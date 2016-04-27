@@ -101,29 +101,35 @@ class MyHandler(FileSystemEventHandler):
             shutil.move(out_path, move_path)
             print "Moved " + out_path + " to " + move_path
 
-# Fill all changes that occurred when track-changes.py wasn't running.
-if not os.path.isdir("out"):
-    os.mkdir("out")
-startup_changes.sync_offline_changes("posts", "out")
 
-print "Watching posts directory for changes... CTRL+C to quit."
-watch_directory = "posts"
+def main():
+    # Fill all changes that occurred when track-changes.py wasn't running.
+    if os.path.isdir("out"):
+        shutil.rmtree("out", True)
 
-event_handler = MyHandler()
+    if not os.path.isdir("out"):
+        os.mkdir("out")
 
-# Run the watchdog.
-observer = Observer()
-observer.schedule(event_handler, watch_directory, True)
-observer.start()
+    startup_changes.sync_offline_changes("posts", "out")
 
-"""
-Keep the script running or else python closes without stopping the observer
-thread and this causes an error.
-"""
-try:
-    while True:
-        time.sleep(1)
-except KeyboardInterrupt:
-    observer.stop()
+    print "Watching posts directory for changes... CTRL+C to quit."
+    watch_directory = "posts"
 
-observer.join()
+    event_handler = MyHandler()
+
+    # Run the watchdog.
+    observer = Observer()
+    observer.schedule(event_handler, watch_directory, True)
+    observer.start()
+
+    """
+    Keep the script running or else python closes without stopping the observer
+    thread and this causes an error.
+    """
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        observer.stop()
+
+    observer.join()
