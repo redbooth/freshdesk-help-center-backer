@@ -94,7 +94,7 @@ def fix_lines(line, fixed_file, article_id, cloudfront_url, freshdesk_hostname):
         if article_id == "local_viewing":
             line = line.replace(referenced_article_id,"../../../" + path + "/index.html")
         else:
-            freshdesk_path = "https://" + freshdesk_hostname + "/solution/articles/" + str(referenced_article_id)
+            freshdesk_path = "https://" + freshdesk_hostname + "/support/solutions/articles/" + str(referenced_article_id)
             line = line.replace(referenced_article_id, freshdesk_path)
 
     # Writes the lines to the fixed_file.
