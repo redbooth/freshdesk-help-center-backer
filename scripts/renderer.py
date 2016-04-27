@@ -37,11 +37,12 @@ def render_freshdesk_deployment(cloudfront_url, freshdesk_hostname, article_id):
     original.close()
     fixed_file.close()
 
+
 def render_local_viewing(article):
     original = open("posts/" + article)
     os.remove("out/" + article)
     fixed_file = open("out/" + article, 'a')
-    title_path = "posts/" + article.split("/")[0] + "/title.html"
+    title_path = "posts/" + "/".join(article.split("/")[0:3]) + "/title.html"
 
     if os.path.isfile(title_path) and article.endswith('html'):
         title = open(title_path)
@@ -55,8 +56,10 @@ def render_local_viewing(article):
     original.close()
     fixed_file.close()
 
+
 def fix_lines(line, fixed_file, article_id, cloudfront_url, freshdesk_hostname):
-    article_path = glob.glob("posts/*/*/{}".format(article_id))[0]
+    if article_id != "local_viewing":
+        article_path = glob.glob("posts/*/*/{}".format(article_id))[0]
     while True:
         image = re.search('src="([A-Z,a-z,1-9,\-,_,/,\.]*)">', line)
 
@@ -84,9 +87,12 @@ def fix_lines(line, fixed_file, article_id, cloudfront_url, freshdesk_hostname):
             break
 
         referenced_article_id = match.group(1)
+        # find the full link to the post
+        path = glob.glob("posts/*/*/{}".format(referenced_article_id))[0]
+        path = "/".join(path.split("/")[1:4])
 
         if article_id == "local_viewing":
-            line = line.replace(referenced_article_id,"../" + referenced_article_id + "/index.html")
+            line = line.replace(referenced_article_id,"../../../" + path + "/index.html")
         else:
             freshdesk_path = "https://" + freshdesk_hostname + "/solution/articles/" + str(referenced_article_id)
             line = line.replace(referenced_article_id, freshdesk_path)

@@ -29,16 +29,6 @@ images backed on Freshdesk and comment out all scripts that involve S3.**
 	- AWS Access Key: `AWS_ACCESS_KEY`
 	- AWS Secret Key: `AWS_SECRET_KEY`
 
-## Downloading Content from Freshdesk
-
-- To download the articles, run:
-
-		python scripts/get_articles.py
-
-- To download the images, run:
-
-		python scripts/get_images.py
-
 ## Tracking Changes
 
 Before locally editing articles and images, **always run `track-changes.py`**.

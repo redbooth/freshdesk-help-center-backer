@@ -3,3 +3,4 @@ posts/
 site/
 .DS_STORE
 .idea/
+out/

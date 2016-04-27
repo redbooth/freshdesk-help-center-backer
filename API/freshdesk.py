@@ -62,14 +62,14 @@ class ArticleAPI(object):
         url = "solution/categories/{}/folders/{}/articles.json".format(category_id, folder_id)
         data = {"solution_article": article}
         if len(tags) > 0:
-            data["tags"] = {"name": tags.join(", ")}
+            data["tags"] = {"name": ", ".join(tags)}
         return self._api.post(url, json=data)['article']
 
     def update_article(self, article_id, folder_id, category_id, article={}, tags=[]):
         url = "solution/categories/{}/folders/{}/articles/{}.json".format(category_id, folder_id, article_id)
         data = {"solution_article": article}
         if len(tags) > 0:
-            data["tags"] = {"name": tags.join(", ")}
+            data["tags"] = {"name": ", ".join(tags)}
         return self._api.put(url, json=data)['article']
 
     def get_all_folder_category_articles(self, folder_id, category_id):
