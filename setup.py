@@ -9,7 +9,7 @@ with open('requirements.txt', 'r') as f:
 
 setuptools.setup(
     name='freshdesk-help-center-backer',
-    version='0.1',
+    version='0.1.1',
     description='A Freshdesk help center backer written in Python',
     long_description='A Freshdesk help center backer written in Python',
     keywords='freshdesk,solution,help center,knowledge base',
