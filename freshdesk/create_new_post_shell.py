@@ -11,6 +11,18 @@ from colorama import Fore
 
 
 def _create_shell(category_id, folder_id):
+
+    # get the directory for the articles
+    try:
+        working_directory = os.environ["FRESHDESK_LOCAL_PATH"]
+        os.chdir(working_directory)
+    except KeyError:
+        print(Fore.RED + "Please set the environment variable FRESHDESK_LOCAL_PATH" + Fore.RESET)
+        sys.exit(1)
+    except OSError:
+        print(Fore.RED + "Please set the environment variable FRESHDESK_LOCAL_PATH to a valid path." + Fore.RESET)
+        sys.exit(1)
+
     # Get domain
     try:
         domain = os.environ["FRESHDESK_DOMAIN"]

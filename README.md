@@ -11,17 +11,13 @@ Goals of this project:
 - Platform flexibility to be able to switch away from Freshdesk
 
 **Note: Images will be backed by Amazon S3 so you will need an AWS account
-for the images to no longer be owned by Freshdesk. Otherwise, you can leave
-images backed on Freshdesk and comment out all scripts that involve S3.**
+for the images to no longer be owned by Freshdesk.**
 
 ## Prerequisites
 
 - Python 2.7
-- Install necessary modules by running this the first time:
-
-		python scripts/setup.py
-
-- Add environment variables: 
+- Add environment variables:
+    - Local article path: `FRESHDESK_LOCAL_PATH`
     - Cloudfront URL: `FRESHDESK_CLOUDFRONT_URL`
     - Freshdesk subdomain: `FRESHDESK_DOMAIN`
 	- Freshdesk agent API key: `FRESHDESK_API_KEY`

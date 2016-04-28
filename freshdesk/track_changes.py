@@ -5,6 +5,7 @@ Keeps track of the changes to the "posts" folder using the watchdog api.
 import os
 import shutil
 import time
+import sys
 
 from scripts import renderer
 from scripts import startup_changes
@@ -103,6 +104,17 @@ class MyHandler(FileSystemEventHandler):
 
 
 def main():
+    # get the directory for the articles
+    try:
+        working_directory = os.environ["FRESHDESK_LOCAL_PATH"]
+        os.chdir(working_directory)
+    except KeyError:
+        print(Fore.RED + "Please set the environment variable FRESHDESK_LOCAL_PATH" + Fore.RESET)
+        sys.exit(1)
+    except OSError:
+        print(Fore.RED + "Please set the environment variable FRESHDESK_LOCAL_PATH to a valid path." + Fore.RESET)
+        sys.exit(1)
+
     # Fill all changes that occurred when track-changes.py wasn't running.
     if os.path.isdir("out"):
         shutil.rmtree("out", True)
